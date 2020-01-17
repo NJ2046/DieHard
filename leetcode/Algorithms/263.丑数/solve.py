@@ -1,24 +1,25 @@
+import itertools
+import numpy
 
 
 class Solution:
     def isUgly(self, num: int) -> bool:
+        init = [2, 3, 5]
+        ugly = [1, 2, 3, 5]
+        i = 2
+        while i <= 30:
+            comb = itertools.combinations_with_replacement(init, i)
+            for c in comb:
+                u = numpy.prod(c)
+                if u > 0:
+                    ugly.append(numpy.prod(c))
+            i += 1
+        if num in ugly:
+            return True
         return False
-
-    def calc_Ugly(self):
-        ugly = list()
-        bound = 2**31-1
-        factors = [2, 3, 5, 6, 10, 15, 30]
-        for factor in factors:
-            i = 1
-            while True:
-                if factor**i <= bound:
-                    ugly.append(factor**i)
-                else:
-                    break
-                i += 1
-        return ugly
 
 
 if __name__ == '__main__':
     s = Solution()
-    print(s.calc_Ugly())
+    print(s.isUgly(30))
+
