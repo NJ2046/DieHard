@@ -32,3 +32,73 @@
 看题目之前是做过的，mysql和ms SqlServer都有相应的函数。依稀记得跟with这个关键词相关。
 先来构建一下这个库吧，用一下公司的地址吧。
 
+解题过程
+看到题目很熟悉，因为工作的时候遇到一个类型的问题，当时去找了解答方案，用到了mysql的新的关键词，之前自己没见过的。
+昨天的时候找到了答案，现在就着这些新的关键词，去练习一下。之后会去看看其他人是如何解答的。
+有一个纠结点在于，mysql里的关键词是不是跟python里的库似的，有的问题直接使用库就能解决，比如algorithms里的77.
+
+mysql
+派生表-derived table
+
+
+
+解决
+# Write your MySQL query statement below
+select t.Score, cast(t.Rank as SIGNED) as Rank
+from
+(
+select Score, if(Score = @t2, @t1, @t1 := @t1 + 1) as Rank, @t2 := Score
+from Scores, (select @t1 := 0, @t2 := null) r
+order by Score desc
+) t
+
+
+后记
+关于派生表
+大致看了百度上搜索到的结果
+子查询、临时表、还有没有from的select
+
+1.
+select (select @t := 1)
+没什么想说的，就是觉得这样写有点奇葩，但是可以执行
+
+2.
+select *
+from (select @t := 1) r
+这个就是派生表
+
+3.
+select *
+from table
+where table.sn in (select sn from table1)
+这个是独立子查询
+
+4.
+select *
+from table
+where table.sn in (select sn from table1 where table1.sn = table.sn)
+这个是相关子查询，这个跟sql的另一个关键词叫做exist关联很大
+我总觉得这个相关子查询有点绕，所以真的是很少的使用到
+
+
+最后来解析一下那个语句
+select Score, if(Score = @t2, @t1, @t1 := @t1 + 1) as Rank, @t2 := Score
+from Scores, (select @t1 := 0, @t2 := null) r
+order by Score desc
+
+
+1. Scores和(select @t1 := 0, @t2 := null) r
+这个是首先执行的，像是写程序的时候的循环条件。
+for(i = 0; i < 1000; i++); for item in items:
+这里是Scores和r做一个笛卡尔积，也就是全连接full join或者叫out join
+
+2. order by Score desc
+毫无疑问是去执行了这个
+
+3. select Score, if(Score = @t2, @t1, @t1 := @t1 + 1) as Rank, @t2 := Score
+我也是第一次发现select里的逗号是有顺序的，如果把【@t2 := Score】 和 【if】语句换一个顺序的话
+这个结果就错了，我猜的，没去验证，我去验证一下试试。已经验证了，的确是错的。
+这一步其实说明，select里的内容是可以动态变化的。
+
+
+为什么把派生表和子查询放在一起还有临时表，我感觉他们差不多都是一样的。
