@@ -30,3 +30,36 @@ maven一直报错说找不到那个包
 工作得以继续了
 但是花费了2个小时
 并且也没有找到问题和解答方法
+
+学习和记录
+What's Maven
+Introduction
+Maven, a [Yiddish word](https://en.wikipedia.org/wiki/Maven) meaning *accumulator of knowledge*, began as an attempt to simplify the build processes in the Jakarta Turbine project. There were several projects, each with their own Ant build files, that were all slightly different. JARs were checked into CVS. We wanted a standard way to build the projects, a clear definition of what the project consisted of, an easy way to publish project information and a way to share JARs across several projects.
+The result is a tool that can now be used for building and managing any Java-based project. We hope that we have created something that will make the day-to-day work of Java developers easier and generally help with the comprehension of any Java-based project.
+关键词
+accumulator of knowledge
+Ant
+CVS
+JARs
+comprehension
+理解
+知识的积累，就像"不用重复造轮子"
+Java代码可以包成Jar
+为了分享Jars，Maven将项目之间的Jar串联起来
+---------------------------------------------------
+Maven’s Objectives
+Making the build process easy
+Providing a uniform build system
+Providing quality project information
+Providing guidelines for best practices development
+Allowing transparent migration to new features
+理解
+创建项目过程的简单化
+统一的创建系统
+有质量的项目信息 不慎了解
+开发最容易上手的指导规范 初步理解，不知道对不对
+透明的迁移  更不了解
+结论
+以为自己看明白了前两个
+*******************************************************
+Feature Summary
