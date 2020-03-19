@@ -61,5 +61,71 @@ Allowing transparent migration to new features
 透明的迁移  更不了解
 结论
 以为自己看明白了前两个
-*******************************************************
+
 Feature Summary
+---------------------------------------------------
+A large and growing repository of libraries and metadata to use out of the box, and arrangements in place with the largest Open Source projects for real-time availability of their latest releases
+
+Extensible, with the ability to easily write plugins in Java or scripting languages
+
+Model based builds: Maven is able to build any number of projects into predefined output types such as a JAR, WAR, or distribution based on metadata about the project, without the need to do any scripting in most cases
+
+Coherent site of project information: Using the same metadata as for the build process, Maven is able to generate a web site or PDF including any documentation you care to add, and adds to that standard reports about the state of development of the project. Examples of this information can be seen at the bottom of the left-hand navigation of this site under the "Project Information" and "Project Reports" submenus
+
+Release management and distribution publication: Without much additional configuration, Maven will integrate with your source control system (such as Subversion or Git) and manage the release of a project based on a certain tag. It can also publish this to a distribution location for use by other projects. Maven is able to publish individual outputs such as a JAR, an archive including other dependencies and documentation, or as a source distribution
+
+Dependency management: Maven encourages the use of a central repository of JARs and other dependencies. Maven comes with a mechanism that your project's clients can use to download any JARs required for building your project from a central JAR repository much like Perl's CPAN. This allows users of Maven to reuse JARs across projects and encourages communication between projects to ensure that backward compatibility issues are dealt with.
+关键词
+large and growing repository
+Extensible and plugins
+a JAR, WAR, or distribution based on metadata
+integrate with git
+理解
+一个大的开源的并且增长着的仓库，很多大型公司也在使用maven，比如google、alibaba
+可以扩展的支持插件，比如spring boot的插件
+基于模型的构建，这个好像很难理解，先记住了，后续再来体味它的用法
+项目信息的连贯，不太知道，猜测类似是帮助文档，瞎猜的，感觉不慎重要
+发行管理和分布式发布，无话
+依赖管理
+结论
+挑选了一些自己没看懂的贴了出来，感觉能看懂的，大部分是在夸maven的方便使用。
+自己感觉挑选的这些可能是有用的特性吧
+还有其实刚开始看特性没什么太大的用处，只是混一个脸熟
+
+-----------------------------------------------------------------------
+Maven Users Centre->Installing Apache Maven
+extracting the archive and adding the `bin` folder with the `mvn` command to the `PATH`.
+结论
+这种方法是通过网页下载版进行的，通常在服务器上使用的是安装服务的包，通常分为两个大的派系，yum和dpkg
+这句话解释了安装的精髓，也就是把maven家目录里的bin目录添加到系统的PATH中
+----------------------------------------------------------------------
+Maven Users Centre->Running Apache Maven
+讲诉了如何让maven项目跑起来
+典型的命令：mvn package
+最常最多使用的：mvn verify
+插件形式：mvn archetype:generate
+---------------------------------------------------------------------
+Maven Users Centre->Configuring Apache Maven
+介绍了maven的相关配置
+setting.xml
+.mvn
+.mvn/extensions.xml
+.mvn/maven.config
+.mvn/jvm.config
+---------------------------------------------------------------------
+Maven Users Centre->Apache Maven IDE Integration
+介绍了常用的IDE的关于maven的配置说明
+---------------------------------------------------------------------
+Providers of Apache Maven Support and Training
+介绍了对maven的支持和培训相关的内容
+没有支持maven的公司
+有一些培训公司，还是蛮有趣，可以针对某一个小技术的培训，在国内好像没有
+都是大面上的培训，j针对某一个大型应用上的培训，比如达内、黑马等
+----------------------------------------------------------------------
+总结->About maven
+到这里关于about maven看完了
+主要介绍了什么是maven:为了分享Jars，Maven将项目之间的Jar串联起来
+maven的特性:挺多的，现在知道有一个是可以用.md来写网页，归结于maven的某一个插件
+如何下载maven:介绍的是网页版的下载方法，有图形界面的系统容易操作，好像除了服务器，开发机应该都是有图形界面的
+基本的使用:下载、测试、运行、配置
+历史版本:不再赘述
