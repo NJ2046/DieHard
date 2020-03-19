@@ -120,7 +120,7 @@ Providers of Apache Maven Support and Training
 介绍了对maven的支持和培训相关的内容
 没有支持maven的公司
 有一些培训公司，还是蛮有趣，可以针对某一个小技术的培训，在国内好像没有
-都是大面上的培训，j针对某一个大型应用上的培训，比如达内、黑马等
+都是大面上的培训，针对某一个大型应用上的培训，比如达内、黑马等
 ----------------------------------------------------------------------
 总结->About maven
 到这里关于about maven看完了
@@ -130,3 +130,55 @@ maven的特性:挺多的，现在知道有一个是可以用.md来写网页，�
 基本的使用:下载、测试、运行、配置
 历史版本:不再赘述
 感觉最重要的是什么是maven，解释的水平还是挺高的，也就是为什么会存在以及存在的意义
+
+第二章 DOCUMENTATION
+Getting Started with Maven->Maven in 5 Minutes->Prerequisites
+You must have an understanding of how to install software on your computer. If you do not know how to do this, please ask someone at your office, school, etc or pay someone to explain this to you. The Maven mailing lists are not the best place to ask for this advice.
+把maven安装到你的电脑，使用你能想到的任何方法
+Getting Started with Maven->Maven in 5 Minutes->Creating a Project
+command
+creating
+mvn archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4 -DinteractiveMode=false
+build
+mvn package
+test
+java -cp target/my-app-1.0-SNAPSHOT.jar com.mycompany.app.App
+总结
+没有讲创建一个项目后那些参数都是些什么意思，就是想让你感受一下创建的过程吧
+使用mvn package去构建这个项目，这一点就像gcc a.txt然后会生成一个a.out的可执行文件一样
+测试就是使用相应的命令去执行后面那个可执行的命令java -cp的意思是从.jar文件里搜索某个class去执行
+Getting Started with Maven->Maven in 5 Minutes->Running maven Tools
+Maven Phases
+validate: validate the project is correct and all necessary information is available
+compile: compile the source code of the project
+test: test the compiled source code using a suitable unit testing framework. These tests should not require the code be packaged or deployed
+package: take the compiled code and package it in its distributable format, such as a JAR.
+integration-test: process and deploy the package if necessary into an environment where integration tests can be run
+verify: run any checks to verify the package is valid and meets quality criteria
+install: install the package into the local repository, for use as a dependency in other projects locally
+deploy: done in an integration or release environment, copies the final package to the remote repository for sharing with other developers and projects.
+clean: cleans up artifacts created by prior builds
+site: generates site documentation for this project
+An interesting thing to note is that phases and goals may be executed in sequence
+关键词
+phases
+validate:correct,necessary information is available
+package:distributable format JAR
+verify:run valid and quality
+install:other projects locally
+deploy:sharing with other developers and projects
+总结
+它将这几个命令叫做phases，中文翻译过来是阶段，这个词的来源应该是编译原理过来的，分成阶段来介绍这些命令是极好的
+还有一点能感觉到这几个phases并不是最原始的，感觉是根据需求而挑拣出来的，阶段是对于这几个命令本身来说的，和他们之间没什么阶段的关系
+我是这么理解的，不知道对不对
+工作中，我用package和install都可以生成jar并且用java -jar去执行他们，达到我想要的，启动某个程序服务
+还有一点，就是这些phases可以在一个序列中一起执行，也就是
+mvn clean
+mvn package
+可以写成
+mvn clean package
+
+总结 Getting Started with Maven->Maven in 5 Minutes
+We hope this quick overview has piqued your interest in the versatility of Maven. Note that this is a very truncated quick-start guide. Now you are ready for more comprehensive details concerning the actions you have just performed
+这个Conclusion就写的很好
+
