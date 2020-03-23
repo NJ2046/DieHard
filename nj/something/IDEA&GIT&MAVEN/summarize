@@ -33,7 +33,7 @@ maven一直报错说找不到那个包
 
 学习和记录
 What's Maven
-Introduction
+Introduction :-)
 Maven, a [Yiddish word](https://en.wikipedia.org/wiki/Maven) meaning *accumulator of knowledge*, began as an attempt to simplify the build processes in the Jakarta Turbine project. There were several projects, each with their own Ant build files, that were all slightly different. JARs were checked into CVS. We wanted a standard way to build the projects, a clear definition of what the project consisted of, an easy way to publish project information and a way to share JARs across several projects.
 The result is a tool that can now be used for building and managing any Java-based project. We hope that we have created something that will make the day-to-day work of Java developers easier and generally help with the comprehension of any Java-based project.
 关键词
@@ -148,7 +148,7 @@ java -cp target/my-app-1.0-SNAPSHOT.jar com.mycompany.app.App
 使用mvn package去构建这个项目，这一点就像gcc a.txt然后会生成一个a.out的可执行文件一样
 测试就是使用相应的命令去执行后面那个可执行的命令java -cp的意思是从.jar文件里搜索某个class去执行
 Getting Started with Maven->Maven in 5 Minutes->Running maven Tools
-Maven Phases
+Maven Phases  :-)
 validate: validate the project is correct and all necessary information is available
 compile: compile the source code of the project
 test: test the compiled source code using a suitable unit testing framework. These tests should not require the code be packaged or deployed
@@ -181,4 +181,67 @@ mvn clean package
 总结 Getting Started with Maven->Maven in 5 Minutes
 We hope this quick overview has piqued your interest in the versatility of Maven. Note that this is a very truncated quick-start guide. Now you are ready for more comprehensive details concerning the actions you have just performed
 这个Conclusion就写的很好
+
+
+Getting Started with Maven->Getting Started in 30 Minutes
+写在前面
+上周2和4，每天都在看maven，发生了一些事情，也没什么好谈
+还挺喜欢这种感觉，看看东西，记录记录，不用太在意格式什么的
+只是记录
+在万树园的时候没有看过
+基本都是在公司的时候会去看
+刚开读了一个开头，感觉maven的好多都在重复，可能是因为我读的太多了
+不过认真看了一番，是不一样的
+
+Getting Started with Maven->Getting Started in 30 Minutes->What is Maven?
+Maven is essentially a project management and comprehension tool and as such provides a way to help with managing
+Builds
+Documentation
+Reporting
+Dependencies
+SCMs
+Releases
+Distribution
+理解
+什么是maven和maven的概述，我感觉差异不太大，通常解释一个东西是什么，大部分人会从他能干什么来说。
+这里说maven能干的是管理项目，并且提供一些理解的工具来帮助大家来管理
+todo:Philosophy of Maven History of Maven https://maven.apache.org/background/philosophy-of-maven.html
+https://maven.apache.org/background/history-of-maven.html
+
+Getting Started with Maven->Getting Started in 30 Minutes->How can Maven benefit my development process?
+理解
+这里的感觉是在介绍他的特性
+感觉比上面的更具有概念化，吹牛皮的感觉
+
+Getting Started with Maven->Getting Started in 30 Minutes->How do I setup Maven?
+理解
+我对这个setup理解有点偏差，我认为是如何开始搞，或者一步一步怎么做
+setup设置，step步子
+就是告诉你关于maven的一些配置，为什么不是config这个词
+无话
+
+Getting Started with Maven->Getting Started in 30 Minutes->How do I make my first Maven project?
+To create our first Maven project we are going to use Maven's archetype mechanism.
+An archetype is defined as an original pattern or model from which all other things of the same kind are made.
+In Maven, an archetype is a template of a project which is combined with some user input to produce a working Maven project that has been tailored to the user's requirements.
+关键词
+archetype mechanism
+理解
+第二句是简单介绍一下啥是原型
+第三句是说了maven里的原型是啥
+经验：这个词听过，很牛批的东西吧，事情的种类和步骤有很多种，而这个原型就是通过某种方法，把这些事情概述归一
+然后你可以在这个原型的基础上删删减减，来达到目的，全是感觉，不一定是对的。
+todo Introduction to Archetypes https://maven.apache.org/guides/introduction/introduction-to-archetypes.html
+This is important to remember because Maven is inherently project-centric in that everything revolves around the notion of a project.
+In short, the POM contains every important piece of information about your project and is essentially one-stop-shopping for finding anything related to your project.
+POM很重要，因为maven是明目中心的，所有的事情都是围绕着项目展开的。
+第二句没看懂。
+modelVersion This element indicates what version of the object model this POM is using. The version of the model itself changes very infrequently but it is mandatory in order to ensure stability of use if and when the Maven developers deem it necessary to change the model.
+POM的版本号码，说的是POM的版本，我只想知道这东西是不是必须的，或者不通版本的POM功能不通
+就像PY2.X和PY3.X？
+packaging This element indicates the package type to be used by this artifact (e.g. JAR, WAR, EAR, etc.). This not only means if the artifact produced is JAR, WAR, or EAR but can also indicate a specific lifecycle to use as part of the build process. (The lifecycle is a topic we will deal with further on in the guide. For now, just keep in mind that the indicated packaging of a project can play a part in customizing the build lifecycle.) The default value for the packaging element is JAR so you do not have to specify this for most projects.
+对这个挺感兴趣的，打包的类型，也就是让代码跑起来的方式，JAR、WAR我看还有POM
+其他的也看了，project是一个top级别的element，groupid跟DNS的命名有点相似，artifactid工程id，就是某个公司的某个项目，version、name、url、description不再赘述
+
+
 
