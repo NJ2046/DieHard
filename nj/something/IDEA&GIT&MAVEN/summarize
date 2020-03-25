@@ -243,5 +243,17 @@ packaging This element indicates the package type to be used by this artifact (e
 对这个挺感兴趣的，打包的类型，也就是让代码跑起来的方式，JAR、WAR我看还有POM
 其他的也看了，project是一个top级别的element，groupid跟DNS的命名有点相似，artifactid工程id，就是某个公司的某个项目，version、name、url、description不再赘述
 
+Getting Started with Maven->Getting Started in 30 Minutes->How do I compile my application sources?
+无话，这个是告诉你如何编译自己的项目，编译应该是将目标代码，转化为计算机可以识别的0和1，也就是二进制文件
+还没忘。然后就是告诉你生成了target文件夹等等,不懂java，连如何执行一个.class都不会
+
+Getting Started with Maven->Getting Started in 30 Minutes->How do I compile my test sources and run my unit tests?
+这两个跟java语音本身应该结合的比较紧密，因为我不懂java，所以看的不太明白
+只是记得，mvn test : maven downloads more dependencies; mvn compile :maven downloads related dependencies
+
+Getting Started with Maven->Getting Started in 30 Minutes->How do I create a JAR and install it in my local repository?
+如何创建一个jar并且下载到本地的仓库中，前一个问题，在《花5分钟开启maven》的时候已经介绍了
+自己也知道了，所以这次主要看看how do install JAR in my local repository
+
 
 
