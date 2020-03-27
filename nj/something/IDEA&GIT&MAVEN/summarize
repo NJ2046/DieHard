@@ -254,6 +254,38 @@ Getting Started with Maven->Getting Started in 30 Minutes->How do I compile my t
 Getting Started with Maven->Getting Started in 30 Minutes->How do I create a JAR and install it in my local repository?
 如何创建一个jar并且下载到本地的仓库中，前一个问题，在《花5分钟开启maven》的时候已经介绍了
 自己也知道了，所以这次主要看看how do install JAR in my local repository
+主要看了如何下载到本地仓库，就是mvn install就可以了。
+
+Getting Started with Maven->Getting Started in 30 Minutes->What is a SNAPSHOT version?
+什么是一个SNAPSHOT版本
+这里解释是开发版本或者是不受保证的稳定或不变的版本
+早些的时候，在使用VM的虚拟机的时候，也有这个词，叫作SNAPSHOT
+当时理解就ghost一键还原
+现在感觉像是历史版本的意思，可以追溯到某个状态下，有点git的意思了吧
+
+Getting Started with Maven->Getting Started in 30 Minutes->How do I use plugins?
+我如何使用插件
+使用POM配置来使用插件，就像在POM使用依赖一样。
+todo 构造的生命周期:https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html
+todo 插件的列表：https://maven.apache.org/plugins/
+todo 配置插件的教程：https://maven.apache.org/guides/mini/guide-configuring-plugins.html
+
+Getting Started with Maven->Getting Started in 30 Minutes->How do I add resources to my JAR?
+如何将资源添加到我的JAR
+通常写程序的时候，会将Data和Code分开，这个说法是不准确的，Code也是一种Data
+在我写程序的时候会新建一个Data文件夹里面经常放着诸如.json、.xls、.txt或者没有后缀的文件
+这个资源这个词用的感觉比Data更大，或者他两没什么可比性
+其实resource就是除了code文件的那些文件吧，总之我是这么理解的
+这里介绍其实在mvn的常规（conventions)，也就是在${basedir}/src/main/resources这个文件家里，然后mvn package的时候就添加到JAR了
+todo linux opt .jar, include vies edit update
+刚才在看这个的时候，忽然想到mvn test，它test的到底是什么，后来百度了，我想它test的可能就是能不能编译以及运行啥的
+发现是有相应的插件来完成这个test，可以指定相应参数什么的
+这里遗留了一个问题，也就是项目本身的目录结构和jar文件里的目录结构的对应关系表述
+虽然不重要，但这里没有说明
+
+
+
+
 
 
 
