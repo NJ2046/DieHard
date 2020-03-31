@@ -283,6 +283,19 @@ done linux opt .jar, include vies edit update->发现vim可以搞定,已经搞�
 这里遗留了一个问题，也就是项目本身的目录结构和jar文件里的目录结构的对应关系表述
 虽然不重要，但这里没有说明
 
+Getting Started with Maven->Getting Started in 30 Minutes->How do I filter resource files?
+如何过滤资源文件
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+  </build>
+这个倒是容易明白，但也会发问，这算是白名单吗？也就是directory可以写多个文件吗？
+心情浮躁，没有捋明白，后续讲了属性.值得事情，没太看明白
+后续再来读这一节，现在去把今天要做的工作做完
 
 
 
