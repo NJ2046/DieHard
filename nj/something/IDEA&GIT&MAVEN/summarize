@@ -343,8 +343,45 @@ a喜欢b，b喜欢c，c喜欢a，这也是一个环。
 这个差别还是挺大的，这可以算上是一个优化点
 但还是会让他们把模板修改成少一点字段组合的group
 
+资源文件会包含一些变量，在构建的时候，提供给程序。
+在maven中是这样实现的，在资源文件中，使用引用的属性，语法是${<property name>}
+这个属性可以是定义在你的pom.xml文件中、也可以在你的setting.xml文件中、也可以是外部的属性文件或者系统属性
 
+用maven实现资源文件过滤，直接复制下面的pom配置，将filtering标签设置为true即可。
 
+你会注意到我们添加了build、resources、resource元素，另外，我们不得不明确，resource文件在/src/main/resources目录中
+我们提供的pom里的所有的这些信息都是默认值，filtering是false，我们不得不改成true
+
+在你定义的pom中去引用一个属性，XML元素定义的名称就是属性的名称，pom的根元素project开始引用。
+因此${project.name}就代表，Maven Quick Start Archetype，${project.build.finalName},这个没有读懂，实际操作了一下
+这个名字是mvn package后jar的名字。
+
+pom里的元素有默认值，因此不需要明确的定义你的pom.xml中的值，相似的在用户的settings.xml可以从settings开始引用，比如${settings.localRepository}，引用用户的本地仓库的路径。
+
+继续我们的样例，让我们添加一堆属性到application.properties文件，当filtered是true的时候，这些值会被提供。
+执行mvn process-resources,process-resources是一个build lifecycle phase，资源文件将被复制和过滤
+tip:这时候发现过滤的不是某个目录，而是这些引用的值
+
+引用外部文件中定义的属性，你要在pom.xml中添加外部文件。首先要做的是创建一个外部的属性文件
+之后在pom.xml添加
+<filters>
+      <filter>src/main/filters/filter.properties</filter>
+</filters>
+
+接下来执行mvn process-resources命令，外部的属性文件将会添加到application.properties中。
+你可以定义一个外部的文件，也可以直接在pom.xml中定义属性值,两者的作用一样。
+<properties>
+    <my.filter.value>hello</my.filter.value>
+</properties>
+
+过滤资源文件可以获得系统的属性，比如Java的，java.version,user.home等
+或者属性定义在命令中的，使用标准的java -D 参数。
+test_command=${nj}
+java process-resources "-Dnj=hello world"
+
+这一章算是读完了，也读的比较清楚了，其实主要过滤的并不是资源文件，过滤的是资源文件中的属性值
+这个标题起的不太过关
+这个application.properties的属性和值是供养给后续的程序使用的
 
 
 
