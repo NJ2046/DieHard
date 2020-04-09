@@ -383,5 +383,17 @@ java process-resources "-Dnj=hello world"
 这个标题起的不太过关
 这个application.properties的属性和值是供养给后续的程序使用的
 
+Getting Started with Maven->Getting Started in 30 Minutes->How do I use external dependencies?
+如何使用外部的依赖?
+在我们之前使用过的示例里，你可能早就知道了dependencies这个部分(section)。
+事实上你可以使用一个外部的引用在这个的时候，但是在这里，我们将会讨论一些细节。
+可以参考，引用机制的导论。https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html
+
+在构建的时候，我们项目需要的外部引用，都可以放在pom.xml的中dependencies这个部分中。现在，我们的项目中只有Junit这一个依赖。
+对于每一个外部的依赖，你将会至少需要4个事情，groupId,artifactId,version,and scope。
+前三者都指明了一件事情，就是项目构建时的依赖。
+scope这个元素指明了在项目中如何使用依赖，他的值可以是compile,test,runtime。
+
+
 
 
