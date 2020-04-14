@@ -387,13 +387,28 @@ Getting Started with Maven->Getting Started in 30 Minutes->How do I use external
 如何使用外部的依赖?
 在我们之前使用过的示例里，你可能早就知道了dependencies这个部分(section)。
 事实上你可以使用一个外部的引用在这个的时候，但是在这里，我们将会讨论一些细节。
-可以参考，引用机制的导论。https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html
+可以参考，依赖机制的导论。https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html
 
 在构建的时候，我们项目需要的外部引用，都可以放在pom.xml的中dependencies这个部分中。现在，我们的项目中只有Junit这一个依赖。
 对于每一个外部的依赖，你将会至少需要4个事情，groupId,artifactId,version,and scope。
 前三者都指明了一件事情，就是项目构建时的依赖。
 scope这个元素指明了在项目中如何使用依赖，他的值可以是compile,test,runtime。
 
+关于依赖的这部分信息，当项目在构建的时候maven会去引用依赖。
+maven去哪里找依赖呢？
+maven会先去查看你的本地仓库去找到所有的依赖。
+在之前的章节里，我们下载了我们的工程，到本地的仓库。
+只要他被下载到本地仓库，其他的项目就可以通过下面简单的配置，来引用这个依赖了。
+  <dependencies>
+    ...
+    <dependency>
+      <groupId>com.mycompany.app</groupId>
+      <artifactId>my-app</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
 
+maven构建的时候
 
 
