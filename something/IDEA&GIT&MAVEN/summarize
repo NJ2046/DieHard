@@ -409,6 +409,21 @@ maven会先去查看你的本地仓库去找到所有的依赖。
     </dependency>
   </dependencies>
 
-maven构建的时候
+maven的依赖构建在什么地方？如何进入到我的本地仓库？
+无论何时，一个项目去引用一个本地仓库的依赖都是不可用的，maven会从远程仓库下载到本地仓库。
+当你第一次构建项目的时候，你可能会注意到maven会下载很多东西。
+maven使用的默认远程仓库是：https://repo.maven.apache.org/maven2/.
+你可以设置属于你的远程仓库（比如你公司的）去替换默认仓库或者设置为默认仓库。
+更多关于仓库的可以参考https://maven.apache.org/guides/introduction/introduction-to-repositories.html仓库导论
+让我们添加另一个引用到我们的项目。
+我们在代码中添加一些日志，因此需要添加log4j依赖。
+首先要知道log4j的groupId，artifactId和version。
+在maven仓库中心（这应该是apache的一个服务器）有一个目录是/maven2/log4j/log4j
+在哪里又要给文件叫做maven-metadata.xml。像下面这样。
+在这个文件里，我们可以看见groupId和artifactId。可以看见很多不同的版本。
+除了maven-metadata文件还可以看见以版本号命名的文件夹，里面有真实存在的文件.jar，还有pom文件，还有md5文件。
+你可以验证你的库的版本。
 
+
+Getting Started with Maven->Getting Started in 30 Minutes->How do I deploy my jar in my remote repository?
 
