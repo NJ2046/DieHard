@@ -426,4 +426,12 @@ maven使用的默认远程仓库是：https://repo.maven.apache.org/maven2/.
 
 
 Getting Started with Maven->Getting Started in 30 Minutes->How do I deploy my jar in my remote repository?
+如何将我的jar部署在远程仓库里
+将jars部署在外部的仓库里，你需要配置仓库的url在你的pom里并且配置认证信息在你的setting.xml文件里。
+下面是一个使用scp认证的例子
+大致讲了一下没有太详细，也没有部署的命令什么的，可能是不同的远程仓库部署命令不同？
+
+
+Getting Started with Maven->Getting Started in 30 Minutes->How do I create documentation?
+如何创建文档？
 
