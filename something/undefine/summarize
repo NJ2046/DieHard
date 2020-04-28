@@ -1,0 +1,51 @@
+遍历未知深度的复杂的dictionary
+
+关键词
+python、dictionary、recursion、yield
+
+参考
+https://stackoverflow.com/questions/12507206/how-to-completely-traverse-a-complex-dictionary-of-unknown-depth/12507453#12507453
+
+积累
+dictionary
+python的数据结构的名字
+content:key & value
+
+C语言中的结构体
+struct Books
+{
+   char  title[50];
+   char  author[50];
+   char  subject[100];
+   int   book_id;
+} book;
+content:everything
+
+JSON
+JavaScript Object Notation
+content:Obj & array
+
+Mongodb-Document
+BSON:二进制的JSON，基于JSON的扩展
+
+
+学习
+recursion
+递归，自己调用自己
+在一个dictionary中包含了dictionary又包含了list，list里又包含了dictionary。
+碰见这样的dictionary如何遍历
+现在看来，那样的数据结构的定义本身就具有递归性，用递归去遍历就再合适不过了。
+def walk(data):
+    if data is dict:
+        for key, value in data.items():
+            walk(value)
+    elif data is list:
+        for d in data:
+            walk(d)
+    else:
+        print(leaf)
+上面的代码会输出这个嵌套的list或者dict的每一个叶子的value
+
+yield
+参考：《FluentPython》.14章 可迭代的对象、迭代器和生成器
+似曾相识，之前读过
