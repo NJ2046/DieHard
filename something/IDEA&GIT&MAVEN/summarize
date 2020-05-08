@@ -434,4 +434,38 @@ Getting Started with Maven->Getting Started in 30 Minutes->How do I deploy my ja
 
 Getting Started with Maven->Getting Started in 30 Minutes->How do I create documentation?
 如何创建文档？
+跳去maven文档系统，使用原型机制创建一个站，使用下面的语句
+更多参见：https://maven.apache.org/guides/mini/guide-site.html
+是创建了一个网站的时候，才会使用文档吗？
+
+Getting Started with Maven->Getting Started in 30 Minutes->How do I build other types of projects?
+如何构建其他类型的项目？
+创建一个简单的web应用
+    mvn archetype:generate \
+        -DarchetypeGroupId=org.apache.maven.archetypes \
+        -DarchetypeArtifactId=maven-archetype-webapp \
+        -DgroupId=com.mycompany.app \
+        -DartifactId=my-webapp
+
+ 使用mvn package会生成一个WAR文件，使用标准的语句可以去执行它
+
+Getting Started with Maven->Getting Started in 30 Minutes->How do I build more than one project at once?
+如何一次创建多个项目？
+在创建项目的时候会有这个问题。在这个部分，我们将展示如何创建一个WAR，并且保护之前的JAR在一步之内
+首先，我们需要添加父亲pom.xml文件在上面两个项目上，看起来像这样的。
+
+我们需要一个引用在webapp的pom.xml中，也就是将父亲的pom的引用放在这里
+最后添加<parent>元素，到两个子pom中
+最后在父亲目录使用mvn verify
+
+运行原理是？首先，parent POM被创建，有一个列表的pom被定义。
+这会告诉maven去运行所有的嵌入的项目。
+
+接着，我们告诉WAR需要my-app的JAR。这会做很少的一些事情：确保路径可用，确保JAR的构建一定在WAR之前，并且指明WARplugin包含JAR的library路径
+
+你可以发现junit-4.11.jar是被引用的，但不是在WAR结束的时候。这个原因是<scope>test</scope>元素指明只在测试运行
+并且那不包含web的应用在编译时期
+
+最后的步骤是包含父亲的定义。
+确保POM总是可以被定为，尽管项目分布在不同的仓库里
 
