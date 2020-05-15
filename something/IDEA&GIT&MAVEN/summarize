@@ -467,5 +467,26 @@ Getting Started with Maven->Getting Started in 30 Minutes->How do I build more t
 并且那不包含web的应用在编译时期
 
 最后的步骤是包含父亲的定义。
-确保POM总是可以被定为，尽管项目分布在不同的仓库里
+确保POM总是可以被定义，尽管项目分布在不同的仓库里
+
+
+
+Introduction to the Build Lifecycle
+构建生命周期是maven的中心概念
+Introduction to the Build Lifecycle->A Build Lifecycle is Made Up of Phases
+这些名字起的很妙。
+软件的生命周期。
+构建生命周期。
+阶段。
+这些名字都有双关的感觉，做到了见名知意。
+随想：
+软件具有生命周期
+项目其实是指软件项目
+学习C的时候有编译和连接以及执行
+可见这里的构建生命周期参考了软件生命周期
+阶段是一个命令参数
+这个名字起的和参数本身是对应的
+阶段可用的有：验证、编译、测试等等
+Introduction to the Build Lifecycle->Usual Command Line Calls
+
 
