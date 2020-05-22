@@ -488,5 +488,18 @@ Introduction to the Build Lifecycle->A Build Lifecycle is Made Up of Phases
 这个名字起的和参数本身是对应的
 阶段可用的有：验证、编译、测试等等
 Introduction to the Build Lifecycle->Usual Command Line Calls
+常用命令
+mvn verify
+mvn clean deploy
+将package放在远程仓库里
+Introduction to the Build Lifecycle->A Build Phase is Made Up of Plugin Goals
+构建阶段基于插件目标
+Phase并不仅仅是默认的那几个
+可以使用plugin去扩展实现特定的功能
+在plugin中是基于目标的，如：spring-boot:run
+其中spring-boot是plugin，run是goals
+Introduction to the Build Lifecycle->Some Phases Are Not Usually Called From the Command Line
+一些不经常使用的phase
+
 
 
