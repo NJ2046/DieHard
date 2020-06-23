@@ -1,0 +1,25 @@
+NER数据流图
+
+Tornado->post->json
+
+【PRE处理】
+
+
+【识别】
+经过三个模块：REG_NER、DIC_NER、MOD_NER
+REG_NER基于re package
+DIC_NER基于jieba package（猜测，可能是一个json等）
+MOD_NER基于tensorflow package
+
+【融合】
+1. MOD_NER&DIC_NER
+2. 1_output&REG_NER
+这里面会有一些融合策略，规则计算，数据结构中
+
+
+【POST处理】
+
+
+
+数据流并非科学，数据流是有一些乱的
+今天代码写到了Tornado->post->json这里。
