@@ -9,7 +9,7 @@ public class SomeThingController
 {
 
     @RequestMapping("/concurrent")
-    public String storePatientDetail(@RequestBody String json)
+    public String concurrent(@RequestBody String json)
     {
         return "hello world";
     }
