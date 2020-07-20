@@ -75,9 +75,7 @@
   </resources>
 
     <plugins>
-    
 
-            <!-- 指定编译级别 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
