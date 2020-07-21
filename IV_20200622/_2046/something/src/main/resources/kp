@@ -74,11 +74,41 @@ util.function.Consumer
 思考溯源:Consumer->函数式接口->接口->方法->类->抽象类
 java的本质是：抽象类、接口、多态一堆吧
 
+名词解释
+Consumer:消费者
+java函数式接口中的一员
+函数式接口：有且仅有一个抽象方法的接口
 
+Consumer源码
 
-
-void accept(T t);
 可实现方法，接受一个参数且没有返回值
+void accept(T t);
+
+
+默认方法，提供链式调用方式执行。
+执行流程:先执行本身的accept在执行传入参数after.accept方法。
+该方法会抛出NullPointerException异常。
+如果在执行调用链时出现异常，会将异常传递给调用链功能的调用者，且发生异常后的after将不会在调用。
+default Consumer<T> andThen(Consumer<? super T> after) {
+    Objects.requireNonNull(after);
+    return (T t) -> { accept(t); after.accept(t); };
+}
+
+
+哎
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 java.lang.Runnable

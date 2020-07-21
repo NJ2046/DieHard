@@ -53,6 +53,7 @@ class Demo02LoggerLambda {
             System.out.println(builder.buildMessage());// 实际上利用内部类 延迟的原理,代码不相关 无需进入到启动代理执行
         }
     }
+    /*
     public static void main(String[] args) {
         String msgA = "Hello";
         String msgB = "World";
@@ -61,5 +62,37 @@ class Demo02LoggerLambda {
             System.out.println("lambda 是否执行了");
             return msgA + msgB + msgC;
         });
+    }
+     */
+}
+
+
+class ConsumerTest {
+
+    public static void main(String[] args) {
+        testConsumer();
+        //testAndThen();
+    }
+
+    /**
+     * 一个简单的平方计算
+     */
+    public static void testConsumer(){
+        Consumer<Integer> square = x -> System.out.println("print square : " + x * x);
+        square.accept(2);
+    }
+
+    /**
+     * 定义3个Consumer并按顺序进行调用andThen方法，其中consumer2抛出NullPointerException。
+     */
+    public static void testAndThen(){
+        Consumer<Integer> consumer1 = x -> System.out.println("first x : " + x);
+        Consumer<Integer> consumer2 = x -> {
+            System.out.println("second x : " + x);
+            throw new NullPointerException("throw exception test");
+        };
+        Consumer<Integer> consumer3 = x -> System.out.println("third x : " + x);
+
+        consumer1.andThen(consumer2).andThen(consumer3).accept(1);
     }
 }
