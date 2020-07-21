@@ -124,7 +124,7 @@ def stack(lis, target_sum):
 
 
 if __name__ == '__main__':
-    path = './1月设备折旧.xls'
+    path = '1月设备折旧.xls'
     sheet = 'Sheet1'
     equipment_data = pd.read_excel(path, sheet_name=sheet)
     # equipment_data.info()
