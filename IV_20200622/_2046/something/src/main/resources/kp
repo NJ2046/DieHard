@@ -95,7 +95,38 @@ default Consumer<T> andThen(Consumer<? super T> after) {
 }
 
 
-哎
+也没看多久，算是看完了。
+依稀感觉这玩意在脑海里有两个特点，就是先定义函数，后面再去执行，像是在转圈。
+第二的感觉其实就像语法糖
+
+上面是在不甚了解接口概念的条件下的体会，总之Java的设计思想，现在还未体会到秒的点。
+接下来是java并发的事情。
+
+java.util.function
+Consumer 消费接口
+Function 功能接口
+Operator 操作接口
+Predicate 断言接口
+Supplier 生产接口
+ref:https://www.jianshu.com/p/2338cabc59e1
+
+
+
+20200724
+java-concurrent
+
+历史：java并发API演变
+1.0-1.4 中的 java.lang.Thread
+5.0 中的 java.util.concurrent
+6.0 中的 Phasers 等
+7.0 中的 Fork/Join 框架
+8.0 中的 Lambda
+
+发现java.util.stream这个库也是有点厉害，所以以此看看并发的事情
+例子举得比较简单，不知道那些复杂的任务，改如何去应用
+是写一个函数，然后就开始全局去这样走
+这跟我想象中的并发编程是有些差别的
+只是用某一种策略
 
 
 
