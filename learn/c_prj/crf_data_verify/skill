@@ -36,3 +36,41 @@ tips
 python-package-install
 
 
+
+问题
+遇到pip install的报的错误
+1. package_name_main version_number has requirement package_name_dependency >= version_number
+but you'll have package_name_dependency version_number which is incompatible.
+实例
+ipython 6.5.0 has requirement prompt-toolkit<2.0.0,>=1.0.15, but you'll have prompt-toolkit 2.0.15 which is incompatible.
+翻译
+ipython 6.5.0需要一个依赖的包,叫做prompt-toolkit,并且这个包的版本要< 2.0.0 且 大于 1.0.15，但现实是，这个
+包的版本是2.0.15
+复盘
+回顾了发现是这个问题导致的，我当时没有认真想，执行的操作是升级了ipython，然后问题就解决了。
+现在思考发现，pip的ipython升级了，所以他所依赖的包的版本也会随之改变，这里，可以这样解释
+ipython 6.5.0 依赖 1.0.15<=prompt-toolkit<2.0.0
+ipython 7.5.0 依赖 1.0.15<=prompt-toolkit<2.5.0
+接着聊
+还有一个有趣的现象
+报错
+ipython 6.5.0 has requirement prompt-toolkit>=9.0.15, but you'll have prompt-toolkit 2.0.15 which is incompatible.
+解释
+这个错误是版本低了
+行动
+我依旧是升级了ipython，最后的结果还是能行了，我就在想，升级的操作，导致prompt-toolkit也跟着升级了
+也就是pip的升级会级联升级？看日志，发现问题，倒是好玩的，我倒前期不太懂脑子，先用行动去趟，之后再来总结，一如既往
+只是幸运的解决了
+
+2.
+报错
+Cannot uninstall 'wrapt'. It is a distutils installed project and thus we cannot accurately determine which files belong to it which would lead to only a partial uninstall.
+解释
+不能卸载“打包”。它是一个distutils安装的项目，因此我们不能准确地确定哪些文件属于它，这将导致只有部分卸载。
+行动
+sudo pip install wrapt --upgrade --ignore-installed wrapt
+
+
+
+问题-20200708
+发生了很多事情，解决了很多事情，留下了很多事情 ~~~

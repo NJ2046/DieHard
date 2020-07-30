@@ -89,6 +89,60 @@ class ForkJionCalculate extends RecursiveTask<Long> implements Serializable {
 }
 
 
+class Box {
+    public int boxValue=0;
+}
+
+class Producer extends Thread{
+    private Box box;
+    public Producer(Box box){
+        this.box=box;
+    }
+    public void run(){
+        for(int i=1;i<=10;i++){
+            synchronized(box){
+                while(box.boxValue!=0){
+                    System.out.println("生产者：满了");
+                    try {
+                        box.wait();//线程休眠，等待唤醒，并释放box对象锁
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                box.boxValue=i;
+                System.out.println("生产者放入了数字："+i);
+                box.notify();//随机唤醒一个正在等待box的线程
+            }
+        }
+    }
+}
+
+
+class Consumerr extends Thread{
+    private Box box;
+    public Consumerr(Box box){
+        this.box=box;
+    }
+    public void run(){
+        for(int i=1;i<=5;i++){
+            synchronized(box){
+                while(box.boxValue==0){
+                    System.out.println("消费者：空了");
+                    try {
+                        box.wait();//线程休眠，等待唤醒，并释放box对象锁
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                System.out.println("消费者取出了数字："+box.boxValue);
+                box.boxValue=0;
+                box.notify();//随机唤醒一个正在等待box的线程
+            }
+        }
+    }
+}
+
+
 
 class ZeroEvenOdd {
     private int n;
@@ -136,17 +190,17 @@ class ZeroEvenOdd {
         new Thread(task).start();
     }
     public static void main(String[] args) {
+        /*
         ZeroEvenOdd n = new ZeroEvenOdd(6);
+        IntConsumer c1 = x -> System.out.print(x);
         startThread(()->{
-            IntConsumer c1 = x -> System.out.print(x);
             try{
-                n.zero(c1);
+                n.odd(c1);
             } catch (Exception e){
                 e.printStackTrace();
             }
         });
         startThread(()->{
-            IntConsumer c1 = x -> System.out.print(x);
             try{
                 n.even(c1);
             } catch (Exception e){
@@ -154,13 +208,26 @@ class ZeroEvenOdd {
             }
         });
         startThread(()->{
-            IntConsumer c1 = x -> System.out.print(x);
             try{
-                n.odd(c1);
+                n.zero(c1);
             } catch (Exception e){
                 e.printStackTrace();
             }
         });
 
+         */
+
+
+
+
+        Box box = new Box();
+        Thread producer = new Producer(box);
+        Thread consumer1 = new Consumerr(box);
+
+        consumer1.start();
+        producer.start();
     }
 }
+
+
+
