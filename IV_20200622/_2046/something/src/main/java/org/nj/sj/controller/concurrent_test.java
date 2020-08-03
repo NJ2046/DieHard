@@ -3,6 +3,7 @@ package org.nj.sj.controller;
 import java.io.Serializable;
 import java.time.Duration;
 import java.time.Instant;
+
 import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 import java.util.stream.LongStream;
@@ -190,9 +191,10 @@ class ZeroEvenOdd {
         new Thread(task).start();
     }
     public static void main(String[] args) {
-        /*
+
         ZeroEvenOdd n = new ZeroEvenOdd(6);
         IntConsumer c1 = x -> System.out.print(x);
+
         startThread(()->{
             try{
                 n.odd(c1);
@@ -214,20 +216,92 @@ class ZeroEvenOdd {
                 e.printStackTrace();
             }
         });
-
-         */
-
-
-
-
+        /*
         Box box = new Box();
         Thread producer = new Producer(box);
         Thread consumer1 = new Consumerr(box);
 
         consumer1.start();
         producer.start();
+
+         */
     }
 }
 
+
+
+class SynTest01 implements Runnable{
+    static int a=0;
+    public static void main(String[] args)
+            throws InterruptedException {
+        SynTest01 syn= new SynTest01();
+        Thread thread1 = new Thread(syn);
+        Thread thread2 = new Thread(syn);
+        thread1.start();thread1.join();
+        thread2.start();thread2.join();
+        System.out.println(a);
+    }
+    @Override
+    public void run() {
+            for (int i = 0; i < 1000; i++) {
+                a++;
+            }
+    }
+}
+
+
+class SynTest02 implements Runnable {
+    Object object = new Object();
+    public static void main(String[] args) throws InterruptedException {
+        SynTest02 syn = new SynTest02();
+        Thread thread1 = new Thread(syn);
+        Thread thread2 = new Thread(syn);
+        thread1.start();
+        thread2.start();
+        //线程1和线程2只要有一个还存活就一直执行
+        while (thread1.isAlive() || thread2.isAlive()) {}
+        System.out.println("main程序运行结束");
+    }
+    @Override
+    public void run() {
+        synchronized (object) {
+            try {
+                System.out.println(Thread.currentThread().getName()
+                        + "线程执行了run方法");
+                Thread.sleep(2000);
+                System.out.println(Thread.currentThread().getName()
+                        + "执行2秒钟之后完毕");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+
+
+class SynTest6 implements Runnable {
+    public static void main(String[] args) throws InterruptedException {
+        SynTest6 instance1 = new SynTest6();
+        SynTest6 instance2 = new SynTest6();
+        Thread thread1 = new Thread(instance1);
+        Thread thread2 = new Thread(instance2);
+        thread1.start();
+        thread2.start();
+    }
+    @Override
+    public void run() {
+        method1();
+    }
+    public synchronized static void method1() {
+        try {
+            System.out.println(Thread.currentThread().getName() + "进入到了静态方法");
+            Thread.sleep(2000);
+            System.out.println(Thread.currentThread().getName() + "离开静态方法，并释放锁");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
 
 
