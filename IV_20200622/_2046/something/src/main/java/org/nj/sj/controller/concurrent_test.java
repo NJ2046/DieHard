@@ -145,12 +145,12 @@ class Consumerr extends Thread{
 
 
 
-class ZeroEvenOdd {
+class ZeroEvenOdd0 {
     private int n;
     private Semaphore s,s1,s2;
 
 
-    public ZeroEvenOdd(int n) {
+    public ZeroEvenOdd0(int n) {
         this.n = n;
         s = new Semaphore(1);
         s1 = new Semaphore(0);
@@ -192,7 +192,7 @@ class ZeroEvenOdd {
     }
     public static void main(String[] args) {
 
-        ZeroEvenOdd n = new ZeroEvenOdd(6);
+        ZeroEvenOdd0 n = new ZeroEvenOdd0(6);
         IntConsumer c1 = x -> System.out.print(x);
 
         startThread(()->{
@@ -227,6 +227,82 @@ class ZeroEvenOdd {
          */
     }
 }
+
+
+class ZeroEvenOdd {
+    private int n;
+    int index = 0;
+    int num = 1;
+
+    public ZeroEvenOdd(int n) {
+        this.n = n;
+    }
+
+    // printNumber.accept(x) outputs "x", where x is an integer.
+    public void zero(IntConsumer printNumber) throws InterruptedException {
+        for(int i=0;i<n;i++){
+            synchronized(this){
+                while(index % 2 == 1) this.wait();
+                printNumber.accept(0);
+                index++;
+                this.notifyAll();
+            }
+        }
+    }
+
+    public void even(IntConsumer printNumber) throws InterruptedException {
+        for(int i=2;i<=n;i+=2){
+            synchronized(this){
+                while(index % 2 == 0 || num % 2 == 1) this.wait();
+                printNumber.accept(num);
+                index++;
+                num++;
+                this.notifyAll();
+            }
+        }
+    }
+
+    public void odd(IntConsumer printNumber) throws InterruptedException {
+        for(int i=1;i<=n;i+=2){
+            synchronized(this){
+                while(index % 2 == 0 || num % 2 == 0) this.wait();
+                printNumber.accept(num);
+                index++;
+                num++;
+                this.notifyAll();
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+
+        ZeroEvenOdd0 n = new ZeroEvenOdd0(6);
+        IntConsumer c1 = x -> System.out.print(x);
+
+        new Thread(() -> {
+            try {
+                n.odd(c1);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+        new Thread(() -> {
+            try {
+                n.even(c1);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+        new Thread(() -> {
+            try {
+                n.zero(c1);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+}
+
 
 
 
