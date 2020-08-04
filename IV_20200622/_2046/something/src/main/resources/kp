@@ -121,6 +121,7 @@ java-concurrent
 6.0 中的 Phasers 等
 7.0 中的 Fork/Join 框架
 8.0 中的 Lambda
+至今 AQS
 
 发现java.util.stream这个库也是有点厉害，所以以此看看并发的事情
 例子举得比较简单，不知道那些复杂的任务，改如何去应用
@@ -172,3 +173,26 @@ synchronized:可重入性质和不可中断性质
 
 java.util.concurrent.LinkedBlockingQueue
 java.util.concurrent.SynchronousQueue
+volatile
+
+
+AQS
+是一个用来构建锁和同步器的框架，使用AQS能简单且高效的构造出应用广泛的大量的同步器
+ReentrantLock,Semaphore,ReentrantReadWriteLock,SynchronousQueue,FutureTask等都是基于AQS的。
+
+
+todo
+系统的认知一下java的并发
+
+
+
+
+采用起承转合，需要熟知，抓住点。
+crf-assemble两点
+其一是neo4j的优化（虽然很low，但也算优化），
+其二是并发的自动调节线程数目（这个需要熟悉并发那块的代码，依赖与看完java的并发，并理解）。
+
+ner的点？
+
+
+
