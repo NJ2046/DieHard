@@ -139,13 +139,17 @@ java.util.concurrent.Executors.newFixedThreadPool
 
 20200803
 
-熟悉一番assemble的代码
 
 synchronized的作用:能够保证同一时刻最多只有一个线程执行该段代码，以达到并发安全的效果
 
 synchronized类别：对象锁和类锁
 
 对象锁：方法锁和同步代码块锁
+同步方法默认使用this或者当前类做为锁。
+同步代码块可以选择以什么来加锁，比同步方法更精确。
+同步方法使用synchronized修饰，而同步代码块使用synchronized(this){}修饰
+
+
 假如有两个同步代码块锁【TS】，也有两个方法方法锁【MS】，有两个线程。
 当线程执行TS的时候，在同一时刻，H1可以执行TS1，H2可以执行TS2。
 当线程执行MS的时候，在同一时刻，H1可以执行MS1。
@@ -154,7 +158,8 @@ synchronized类别：对象锁和类锁
 类锁：static方法锁和class锁
 
 总结
-对于同步不同步，关键点在于锁，两个线程执行的是同一把锁，那么就依次排队等候，两个线程执行的不是同一把锁，那就各干各的事
+对于同步不同步，关键点在于锁，两个线程执行的是同一把锁，
+那么就依次排队等候，两个线程执行的不是同一把锁，那就各干各的事
 
 synchronized:可重入性质和不可中断性质
 
@@ -181,10 +186,7 @@ AQS
 ReentrantLock,Semaphore,ReentrantReadWriteLock,SynchronousQueue,FutureTask等都是基于AQS的。
 
 
-todo
 系统的认知一下java的并发
-
-
 
 
 采用起承转合，需要熟知，抓住点。
@@ -194,7 +196,6 @@ crf-assemble两点
 
 ner的点？
 忽然想起来，单独起jieba分词，会让变得快。
-
 
 
 assemble/patient代码分析
@@ -207,6 +208,9 @@ assemble/patient代码分析
 7. 入Neo4j执行完成将组装操作放入阻塞队列2
 8. 判断阻塞队列2是否为空，如果不为空，取出组装操作，进行组装
 9. 判断阻塞队列1是否为空，如果不空，将病人编号取出，删除Neo4j数据，保持Neo4j库数据量较少
+
+
+
 
 
 

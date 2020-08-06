@@ -1,0 +1,23 @@
+fastjson
+
+任务
+1. 将json字符串转换为json对象
+fastjson.JSON.parseObject("{'a':[{'c':1}, 2, 3], 'b':'d'}")
+类似于python中的json.dump
+
+2. set和get
+public void setName(String n)
+{
+name=n;
+}
+public int getAge() {
+return age;
+}
+相当于
+@Setter
+String Name;
+Getter
+int Age;
+来自于
+import lombok.Setter;
+import lombok.Getter;

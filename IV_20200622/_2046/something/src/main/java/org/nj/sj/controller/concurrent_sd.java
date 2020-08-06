@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.Duration;
 import java.time.Instant;
 
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 import java.util.stream.LongStream;
@@ -144,163 +146,254 @@ class Consumerr extends Thread{
 }
 
 
-
-class ZeroEvenOdd0 {
+class FooBar {
     private int n;
-    private Semaphore s,s1,s2;
+    private int f = 1;
 
-
-    public ZeroEvenOdd0(int n) {
+    public FooBar(int n) {
         this.n = n;
-        s = new Semaphore(1);
-        s1 = new Semaphore(0);
-        s2 = new Semaphore(0);
     }
 
-    // printNumber.accept(x) outputs "x", where x is an integer.
-    public void zero(IntConsumer printNumber) throws InterruptedException {
-        for(int i=1;i<=n;i++)
-        {
-            s.acquire();
-            printNumber.accept(0);
-            if((i&1) == 0)
-                s1.release();
-            else
-                s2.release();
+    public void foo(Runnable printFoo) throws InterruptedException {
+
+        for (int i = 0; i < n; i++) {
+            synchronized (this) {
+                while (f == 0) wait();
+                // printFoo.run() outputs "foo". Do not change or remove this line.
+                printFoo.run();
+                f = 0;
+                notify();
+            }
+
         }
     }
 
-    public void even(IntConsumer printNumber) throws InterruptedException {
-        for(int i=2;i<=n;i+=2)
-        {
-            s1.acquire();
-            printNumber.accept(i);
-            s.release();
+    public void bar(Runnable printBar) throws InterruptedException {
+
+        for (int i = 0; i < n; i++) {
+            synchronized (this){
+            while (f == 1) wait();
+            // printBar.run() outputs "bar". Do not change or remove this line.
+            printBar.run();
+            f = 1;
+            notify();
+            }
         }
+
     }
 
-    public void odd(IntConsumer printNumber) throws InterruptedException {
-        for(int i=1;i<=n;i+=2)
-        {
-            s2.acquire();
-            printNumber.accept(i);
-            s.release();
-        }
-    }
-    private static void startThread(Runnable task) {
-        new Thread(task).start();
-    }
+
     public static void main(String[] args) {
-
-        ZeroEvenOdd0 n = new ZeroEvenOdd0(6);
-        IntConsumer c1 = x -> System.out.print(x);
-
-        startThread(()->{
-            try{
-                n.odd(c1);
-            } catch (Exception e){
+        FooBar fb = new FooBar(2);
+        new Thread(() -> {
+            try {
+                fb.foo(() -> System.out.print("foo"));
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-        });
-        startThread(()->{
-            try{
-                n.even(c1);
-            } catch (Exception e){
+        }).start();
+
+        new Thread(() -> {
+            try {
+                fb.bar(() -> System.out.print("bar"));
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-        });
-        startThread(()->{
-            try{
-                n.zero(c1);
-            } catch (Exception e){
-                e.printStackTrace();
-            }
-        });
-        /*
-        Box box = new Box();
-        Thread producer = new Producer(box);
-        Thread consumer1 = new Consumerr(box);
+        }).start();
 
-        consumer1.start();
-        producer.start();
 
-         */
+
     }
 }
 
 
-class ZeroEvenOdd {
+class FooBar1 {
     private int n;
-    int index = 0;
-    int num = 1;
-
-    public ZeroEvenOdd(int n) {
+    private volatile boolean flag;
+    public FooBar1(int n) {
         this.n = n;
     }
-
-    // printNumber.accept(x) outputs "x", where x is an integer.
-    public void zero(IntConsumer printNumber) throws InterruptedException {
-        for(int i=0;i<n;i++){
-            synchronized(this){
-                while(index % 2 == 1) this.wait();
-                printNumber.accept(0);
-                index++;
-                this.notifyAll();
+    public void foo(Runnable printFoo) throws InterruptedException {
+        for (int i = 0; i < n; i++) {
+            while(flag){
+                Thread.yield();
             }
+            printFoo.run();
+            flag = true;
         }
     }
-
-    public void even(IntConsumer printNumber) throws InterruptedException {
-        for(int i=2;i<=n;i+=2){
-            synchronized(this){
-                while(index % 2 == 0 || num % 2 == 1) this.wait();
-                printNumber.accept(num);
-                index++;
-                num++;
-                this.notifyAll();
+    public void bar(Runnable printBar) throws InterruptedException {
+        for (int i = 0; i < n; i++) {
+            while(!flag){
+                Thread.yield();
             }
-        }
-    }
-
-    public void odd(IntConsumer printNumber) throws InterruptedException {
-        for(int i=1;i<=n;i+=2){
-            synchronized(this){
-                while(index % 2 == 0 || num % 2 == 0) this.wait();
-                printNumber.accept(num);
-                index++;
-                num++;
-                this.notifyAll();
-            }
+            printBar.run();
+            flag = false;
         }
     }
 
     public static void main(String[] args) {
-
-        ZeroEvenOdd0 n = new ZeroEvenOdd0(6);
-        IntConsumer c1 = x -> System.out.print(x);
+        FooBar fb = new FooBar(2);
 
         new Thread(() -> {
             try {
-                n.odd(c1);
+                fb.foo(() -> System.out.print("foo"));
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }).start();
+
         new Thread(() -> {
             try {
-                n.even(c1);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }).start();
-        new Thread(() -> {
-            try {
-                n.zero(c1);
+                fb.bar(() -> System.out.print("bar"));
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }).start();
     }
+}
+
+
+class FooBar2 {
+    private int n;
+    private volatile boolean flag;
+    private ReentrantLock lock = new ReentrantLock();
+    private Condition condition = lock.newCondition();
+    public FooBar2(int n) {
+        this.n = n;
+    }
+    public void foo(Runnable printFoo) throws InterruptedException {
+        for (int i = 0; i < n; i++) {
+            lock.lock();
+            try {
+                if (flag) {
+                    condition.await();
+                }
+                printFoo.run();
+                flag = true;
+                condition.signal();
+            } finally {
+                lock.unlock();
+            }
+        }
+    }
+    public void bar(Runnable printBar) throws InterruptedException {
+        for (int i = 0; i < n; i++) {
+            lock.lock();
+            try {
+                if (!flag) {
+                    condition.await();
+                }
+                printBar.run();
+                flag = false;
+                condition.signal();
+            } finally {
+                lock.unlock();
+            }
+        }
+    }
+}
+
+
+class H2O {
+    String f = new String();
+    private Semaphore o,h;
+    public H2O(String f) {
+        this.f = f;
+        o = new Semaphore(1);
+        h = new Semaphore(2);
+    }
+
+    public void hydrogen(Runnable releaseHydrogen) throws InterruptedException {
+        for(int i = 0; i < f.toCharArray().length / 2; i ++)
+        {
+            if(h.availablePermits() > 0){
+                h.acquire();
+                // releaseHydrogen.run() outputs "H". Do not change or remove this line.
+                releaseHydrogen.run();
+                if (o.availablePermits() == 0){
+                    o.release();
+                }
+            }
+        }
+    }
+
+    public void oxygen(Runnable releaseOxygen) throws InterruptedException {
+        for(int i = 0; i < f.toCharArray().length / 2; i ++)
+        {
+        if(o.availablePermits() > 0){
+            o.acquire();
+            // releaseHydrogen.run() outputs "H". Do not change or remove this line.
+            releaseOxygen.run();
+            if (h.availablePermits() == 0){
+                h.release();
+            }
+        }
+        }
+    }
+
+
+    public static void main(String[] args) {
+        H2O h2 = new H2O("OOHHHH");
+        new Thread(() -> {
+            try {
+                h2.hydrogen(() -> System.out.print("H"));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+
+        new Thread(() -> {
+            try {
+                h2.oxygen(() -> System.out.print("O"));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
+}
+
+
+
+
+class H2O1 {
+    Semaphore hSemaphore = new Semaphore(2);
+    Semaphore oSemaphore = new Semaphore(1);
+    CyclicBarrier barrier = new CyclicBarrier(3);
+    public H2O1() {
+
+    }
+
+    public void hydrogen(Runnable releaseHydrogen) throws InterruptedException {
+
+        hSemaphore.acquire();
+        try {
+            barrier.await();
+        } catch (BrokenBarrierException e) {
+            e.printStackTrace();
+        }
+        releaseHydrogen.run();
+
+        hSemaphore.release();
+
+    }
+
+    public void oxygen(Runnable releaseOxygen) throws InterruptedException {
+
+        // releaseOxygen.run() outputs "O". Do not change or remove this line.
+        oSemaphore.acquire();
+        try {
+            barrier.await();
+        } catch (BrokenBarrierException e) {
+            e.printStackTrace();
+        }
+        releaseOxygen.run();
+
+        oSemaphore.release();
+    }
+
+
 }
 
 
