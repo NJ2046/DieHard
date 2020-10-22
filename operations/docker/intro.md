@@ -5,9 +5,9 @@
 ## docker术语
 镜像仓库(docker hub)、镜像(image)、容器(container)
 ## 术语关系
-ops或者dev使用docker的时候内容。<\br>
+ops或者dev使用docker的时候内容。
 1. 从docker hub拉取镜像到本地       docker pull
 2. 使用dockerfile语法自定义镜像 	docker build 
-3. 操作容器                         docker run 
+3. 操作容器                         docker run  </br>
 image存储在docker hub中，container基于image启动
 
