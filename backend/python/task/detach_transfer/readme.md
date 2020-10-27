@@ -32,7 +32,7 @@ B: OS:linux, Sortware:python、pip、thrift、docker
 |10|A|nginx proxy pass client|
 |11|A|js nest nginx and test|
 ## 耗时
-起2020-10-27止2020-10-26 总计: 3d
+起2020-10-22止2020-10-26 总计: 3d
 # 感与悟
 上周四中午接到任务，对任务中使用的环境不甚了解，现在不熟练</br>
 ## 技术简介
