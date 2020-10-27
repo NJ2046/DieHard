@@ -28,6 +28,21 @@ B机器: OS:linux, Sortware:python、pip、thrift、docker
 8. 编写js代码 
 9. js嵌入到nginx服务中且测试</br>
 过程:</br>
+<table border="1">
+<tr>
+<th>Heading</th>
+<th>Another Heading</th>
+</tr>
+<tr>
+<td>row 1, cell 1</td>
+<td>row 1, cell 2</td>
+</tr>
+<tr>
+<td>row 2, cell 1</td>
+<td>row 2, cell 2</td>
+</tr>
+</table>
+
 location|action
 |location|action|
 |---|---|
@@ -42,4 +57,5 @@ location|action
 |A|base on client to code js|
 |A|nginx proxy pass client|
 |A|js nest nginx and test|
+
 
