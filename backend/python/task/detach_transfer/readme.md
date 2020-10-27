@@ -15,7 +15,7 @@
 ## 方案
 将模型从flask中分离出来，评估模型负载度，寻找合适负载度且带有GPU的机器，使用thrift进行网络传输
 ## 环境
-A机器: OS:linux, Sortware:python、pip、flask、uwsgi、nginx、js
+A机器: OS:linux, Sortware:python、pip、flask、uwsgi、nginx、js</br>
 B机器: OS:linux, Sortware:python、pip、thrift、docker
 ## 执行
 1. 从flask中分离出模型
@@ -24,10 +24,11 @@ B机器: OS:linux, Sortware:python、pip、thrift、docker
 4. 编写flask的客户端代码
 5. 测试flask服务
 6. 嵌入uwsig且测试
-7. 编写js代码 
-9. nginx反向代理
-8. js嵌入到nginx服务中
-过程：
+7. nginx反向代理
+8. 编写js代码 
+9. js嵌入到nginx服务中且测试</br>
+过程:</br>
+location|action
 |location|action|
 |---|---|
 |A|A detach model as m|
