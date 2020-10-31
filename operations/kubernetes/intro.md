@@ -1,4 +1,4 @@
-## 概论
+# 概论
 基于容器技术的分布式架构领先方案,基于Docker的大规模容器化分布式系统解决方案,实现资源管理的自动化,以及跨多个数据中心的资源利用率的最大化,负载均衡器的选型和部署实施问题,复杂的服务治理框架,服务监控和故障处理模块
 ## 写在前面
 仅仅梳理软件安装问题，仅限于K8S。
@@ -6,12 +6,18 @@
 1. 传统安装方式:源码、二进制以及依托于安装工具，包括但不限于yum、apt等
 2. 基于容器的安装方式:k8s特有的安装方式，以配置文件(yaml or json)为调度资源的控制台，使用kubectl apply -f .yam 完成软件安装
 ### 需要用的软件
-1. [docker:\<18.03](https://kubernetes.io/zh/docs/setup/production-environment/container-runtimes/), CRI,容器运行接口的一种软件
+1. [docker\<18.03](https://kubernetes.io/zh/docs/setup/production-environment/container-runtimes/): CRI,容器运行时的一种软件。
 2. apt-get install -y kubelet=1.15.0-00 kubeadm=1.15.0-00 kubectl=1.15.0-00
 3. flannel:CNI,容器网络接口的一种软件
-4. [systemd](https://www.cnblogs.com/zwcry/p/9602756.html):linux管理的一套命令, systemctl, jorunalctl
+4. [systemd](https://www.cnblogs.com/zwcry/p/9602756.html):linux管理的一套命令, systemctl, jorunalctl</br>
 其中docker和kubelet、kubeadm、kubectl必须使用传统安装方式, CNI可以使用传统安装方式也可以使用基于容器的安装方式，推荐使用后者。systmed用来调试软件安装出现的问题、监控软件运行的状态。
-
+### 软件依赖
+1. docker是k8s所必须的，k8s里的docker是指符合容器运行时的一种软件，当然还有其它容器运行时软件。理解的话，可以用编译器比较，比如C语言会有多种编译器，常用的是GCC，但也有VC、TC等。相同的C语言语法，用不同编译器，都可以正常编译出可运行文件。k8s虽然是一个解决方案、框架或者说是服务，但从编程语言角度理解，k8s的确定义了自己的DSL, 它以资源为基本单元，定义了一套操作资源的领域专用语言。
+2. kubelet、kubeadm、kubectl。k8s提供了几种安装方式命令工具安装和二进制文件安装。这里采用第一种方式安装k8s，其中kubeadm用来初始化集群，kubelet用来在集群中的每个节点启动pod和容器等，kubectl用来与集群通信。建议使用yum或apt来安装，工具版本使用1.14.0，kubeflow对k8s的版本1.14.0支持最好，一般的工具版本指定后，如果没有的指定k8s版本，那么k8s的版本会跟随安装工具kubeadm版本。
+3. flannel。负责集群中节点通信的软件kk
+### 操作步骤
+#### 主节点
+#### 子节点
 
 ## 安装
 ### 前置
