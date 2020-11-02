@@ -27,6 +27,8 @@ setenforce 0 && \
 swapoff -a && \
 sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab 
 ```
+防火墙：可能会遇到服务不存在的提示，不用理会
+selinux：可能会遇到文件不存在的提示，不用理会
 ### 安装 Docker
 ### 安装 Kube\* 工具
 ## 主节点
