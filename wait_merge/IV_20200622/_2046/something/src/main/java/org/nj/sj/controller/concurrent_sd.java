@@ -528,3 +528,151 @@ class lock {
         }
     }
 }
+
+
+
+
+class FizzBuzz {
+    private int n;
+    private int i;
+    private ReentrantLock lock = new ReentrantLock();
+    private Condition c4 = lock.newCondition();
+    private Condition c3 = lock.newCondition();
+    private Condition c5 = lock.newCondition();
+    private Condition c15 = lock.newCondition();
+
+    public FizzBuzz(int n) {
+        this.n = n;
+        this.i = 1;
+    }
+
+    // printFizz.run() outputs "fizz".
+    public void fizz(Runnable printFizz) throws InterruptedException {
+        while(i <= n){
+                if (i % 3 == 0) {
+                    lock.lock();
+                    try{
+                        c4.await();
+                        c5.await();
+                        c15.await();
+                        i++;
+                        printFizz.run();
+                    }
+                    finally {
+                        lock.unlock();
+                    }
+                } else if (i % 5 == 0) {
+                    lock.lock();
+                    try {
+                        c3.await();
+                        c5.signal();
+                    }
+                    finally {
+                        lock.unlock();
+                    }
+
+                } else if (i % 15 == 0) {
+                    lock.lock();
+                    try {
+                        c3.await();
+                        c15.signal();
+                    }
+                    finally {
+                        lock.unlock();
+                    }
+                } else {
+                    lock.lock();
+                    try {
+                        c3.await();
+                        c4.signal();
+                    } finally {
+                        lock.unlock();
+                    }
+                }
+
+        }
+
+    }
+
+    // printBuzz.run() outputs "buzz".
+    public void buzz(Runnable printBuzz) throws InterruptedException {
+        while(i <= n){
+            lock.lock();
+            try {
+                if (i % 3 == 0) {
+                    c5.await();
+                    c3.signal();
+                } else if (i % 5 == 0) {
+                    i++;
+                    printBuzz.run();
+                } else if (i % 15 == 0) {
+                    c5.await();
+                    c15.signal();
+                } else {
+                    c5.await();
+                    c4.signal();
+                }
+            }
+            finally {
+                lock.unlock();
+            }
+
+        }
+
+    }
+
+    // printFizzBuzz.run() outputs "fizzbuzz".
+    public void fizzbuzz(Runnable printFizzBuzz) throws InterruptedException {
+        while(i <= n){
+            lock.lock();
+            try {
+                if (i % 3 == 0) {
+                    c15.await();
+                    c3.signal();
+                } else if (i % 5 == 0) {
+                    c15.await();
+                    c5.signal();
+                } else if (i % 15 == 0) {
+                    printFizzBuzz.run();
+                    i++;
+
+                } else {
+                    c15.await();
+                    c4.signal();
+                }
+            }
+            finally {
+                lock.unlock();
+            }
+        }
+    }
+
+    // printNumber.accept(x) outputs "x", where x is an integer.
+    public void number(IntConsumer printNumber) throws InterruptedException {
+        while(i <= n){
+            lock.lock();
+            try{
+            if(i % 3 == 0){
+                c4.await();
+                c3.signal();
+            }
+            else if(i % 5 == 0){
+                c4.await();
+                c5.signal();
+            }
+            else if(i % 15 == 0){
+                c4.await();
+                c15.signal();
+            }
+            else{
+                printNumber.accept(i);
+
+                    i ++;
+            }
+            }
+            finally {
+                lock.unlock();
+            }
+        }
+    }
+}
