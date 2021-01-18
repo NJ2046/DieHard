@@ -27,10 +27,41 @@ setenforce 0 && \
 swapoff -a && \
 sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab 
 ```
-防火墙：可能会遇到服务不存在的提示，不用理会
-selinux：可能会遇到文件不存在的提示，不用理会
-### 安装 Docker
+防火墙：可能会遇到服务不存在的提示，不用理会</br>
+selinux：可能会遇到文件不存在的提示，不用理会</br>
+### [安装 Docker](https://docs.docker.com/engine/install/)
+安装示例为ubuntu系统，centos以及其它OS请参考官方安装文档。
+```
+1. apt-get purge docker-ce docker-ce-cli containerd.io && rm -rf /var/lib/docker
+2. apt-get update &&\
+	apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg-agent \
+    software-properties-common
+3. curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+4. apt-get install docker-ce docker-ce-cli containerd.io
+5. docker version
+6. systemctl start docker && systemctl enable docker
+```
+1. 安装前检查是否已经安装docker，删除已有的docker。如果你已经装好了可以不用安装。
+2. 更新apt-get工具，下载相关软件。没看明白，感觉是自己去下载一些软件，为了后续GPG的事情。
+3. 添加docker官方的GPG key。什么是GPG，为什么要安装GPG。
+4. 安装docker引擎。关键步骤。
+5. 验证docker是否安装成功。 
+6. 启动docker且设置为开机启动。
 ### 安装 Kube\* 工具
+以为后续要安装kubeflow，kubeflow推荐使用版本为1.14.0的k8s，因此安装示例使用的是1.14.0。
+```
+1. apt-get install -y kubelet=1.14.0-00 kubeadm=1.14.0-00 kubectl=1.14.0-00
+2. systemctl start kubectl && systemctl enable kubectl
+3. 	kubeadm init \
+	--apiserver-advertise-address=172.17.7.152 \
+	--image-repository registry.aliyuncs.com/google_containers \
+	--service-cidr=10.1.0.0/16 \
+	--pod-network-cidr=10.244.0.0/16
+```
 ## 主节点
 ## 子节点
 
