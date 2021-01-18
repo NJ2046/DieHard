@@ -76,3 +76,4 @@ ENV/
 /fabfile.py
 *.out
 *.iml
+*.DS_Store
